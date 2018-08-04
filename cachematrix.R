@@ -1,10 +1,4 @@
-## The makeCacheMean function is built by the following steps: 
-## (1) set the value of the matrix by initializing two objetcs called "n" and "w" (empty numeric vector) that will be used later
-## (2) set data values of the matrix within an object
-## (3) get the those values using the get() option
-## (4) set the value of the inverse matrix
-## (5) get the value of the inverse matrix 
-## (6) assign each of these functions an element within a list. 
+## The makeCacheMean function is built into different parts: (1) after defining makeCacheMatrix function, we need to set the value of the matrix by initializing two objetcs called "n" and "w" (empty numeric vector) that will be used later on the code. After initializing the empty vectors, we need to set data values of the matrix within an object; (2) after setting the values of the matrix, we need to get the those values using the get() option; (3) on the third step, we need to set the value of the inverse matrix; (4) on the forth step, we need to get the value of the inverse matrix (5) on the last part of the code, we assign each of these functions an element within a list. 
 
 makeCacheMatrix <- function(x = matrix()) {
               n <- NULL
