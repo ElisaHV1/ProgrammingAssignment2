@@ -1,20 +1,47 @@
-## As we learned from the assigment, there are special type of functions that caches potentially time-consuming computations. 
-## The makeCacheMatrix function is an example of this as it creates an special R object that stores a matrix in memory to accelerate 
-## subsequent access. The makeCacheMatrix and a second function called cacheSolve will help us to calculate the inverse of a matrix
-
-## The makeCacheMatrix function is built into different parts: (1) after defining makeCacheMatrix, we need to set the value of the 
-## matrix by initializing two empty objects "n" and "w" that will be used later. We need to set data values of the matrix within an object; (2) after that,
-## we need to get these values using get() option; (3) we need to set the value of the inverse matrix; (4) get the value of the inverse matrix
-## (5) assign each of these functions an element within a list
-
+## The makeCacheMean function is built into different parts: (1) after defining makeCacheMatrix function, we need to set the value of the matrix by initializing two objetcs called "n" and "w" (empty numeric vector) that will be used later on the code. After initializing the empty vectors, we need to set data values of the matrix within an object; (2) after setting the values of the matrix, we need to get the those values using the get() option; (3) on the third step, we need to set the value of the inverse matrix; (4) on the forth step, we need to get the value of the inverse matrix (5) on the last part of the code, we assign each of these functions an element within a list. 
 
 makeCacheMatrix <- function(x = matrix()) {
-
+              n <- NULL
+            set <- function(y) {
+             x <<- y
+             w <<- NULL
+  }
+  get <- function() x
+  setsolution <- function (inverse) n <<- inverse
+  getsolution <- function () n 
+  list(set = set, get = get, setsolution = setsolution, getsolution = getsolution)
 }
 
 
-## Write a short comment describing this function
+## The cacheSolve function computes and retrieves the inverse of the matrix define before.This function is needed as it will populate or retrieve the inverse of the matrix defined on part one. Like we did on makeCacheMatrix, we need to start a single argument "x". Then, using getsolution() option, the function will get the value of the matrix if it is different from null. Finally, we need to set the inverse of the matrix.
 
+## Return a matrix that is the inverse of 'x'
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  m <- x$getsolution()
+  if(!is.null(m)){
+    message("getting cached data")
+    return(m)
+  }
+  data <-x$get()
+  n <- solve(data, ...)
+  x$setsolution(n)
+  n
 }
+
+##Althought it is not a requirement of the assigment, I provide an example of how this functions works.
+##First, we need to define a matrix. In this case, I use a 3x3 matrix.
+x <- matrix(c(1,0,5,2,1,6,3,4,0),nrow=3, ncol=3)
+##            [,1] [,2] [,3]
+##      [1,]  -24   18    5
+##      [2,]   20  -15   -4
+##      [3,]   -5    4    1
+## Then, I execute the two functions created above and see the inverse of the matrix.
+a <- makeCacheMatrix(x)
+cacheSolve(a)
+
+cacheSolve(a)
+getting cached data
+## [,1] [,2] [,3]
+## [1,]  -24   18    5
+## [2,]   20  -15   -4
+## [3,]   -5    4    1
